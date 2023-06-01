@@ -1,5 +1,5 @@
 import React from 'react';
-import { getByRole, screen } from '@testing-library/react';
+import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { act } from 'react-dom/test-utils';
 import renderWithRouter from '../renderWithRouter';
@@ -17,17 +17,14 @@ describe('Ao favoritar a partir da página de detalhes', () => {
   test('Teste se apenas são exibidos os Pokémon favoritados', () => {
     const { history } = renderWithRouter(<App />);
 
-    // pega o elemento na Home clica em 'More Details' clica no checkbox
     act(() => {
       history.push('/pokemon/25');
     });
 
     const checkboxFavoritePokemon = screen.getByRole('checkbox', { name: 'Pokémon favoritado?' });
 
-    // simula a acao do user
     userEvent.click(checkboxFavoritePokemon);
 
-    // faz o teste
     expect(checkboxFavoritePokemon).toBeChecked();
 
     act(() => {
