@@ -22,12 +22,20 @@ describe('Ao favoritar a partir da página de detalhes', () => {
       history.push('/pokemon/25');
     });
 
-    const favoritePokemon = getByRole('checkbox');
+    const checkboxFavoritePokemon = screen.getByRole('checkbox', { name: 'Pokémon favoritado?' });
 
     // simula a acao do user
-    userEvent.click(favoritePokemon);
+    userEvent.click(checkboxFavoritePokemon);
 
     // faz o teste
-    expect(favoritePokemon).toBeChecked();
+    expect(checkboxFavoritePokemon).toBeChecked();
+
+    act(() => {
+      history.push('/favorites');
+    });
+
+    const favoritePokemon = screen.getByText('Pikachu');
+
+    expect(favoritePokemon).toBeInTheDocument();
   });
 });
